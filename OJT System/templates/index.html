@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Upload</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-green-400 p-4 fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center text-white">
+            <!-- Logo and Uniwork Name -->
+            <div class="flex items-center space-x-4">
+                <img src="/static/uploads/download-removebg-preview.png" alt="Uniwork Logo" class="h-10 w-10 object-contain"> <!-- Adjust the src to the correct path of your logo -->
+                <a href="#" class="text-2xl font-bold">Bicutan Medical Center, Inc.</a>
+            </div>
+            <div class="space-x-4">
+                <a href="#" class="hover:bg-green-500 py-2 px-4 rounded-lg">Home</a>
+                <a href="#" class="hover:bg-green-500 py-2 px-4 rounded-lg">Upload Excel</a>
+                <a href="#" class="hover:bg-green-500 py-2 px-4 rounded-lg">Services</a>
+                <a href="#" class="hover:bg-green-500 py-2 px-4 rounded-lg">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex min-h-screen mt-16"> <!-- Added mt-16 to account for fixed navbar height -->
+        <!-- Sidebar -->
+        <aside class="w-64 bg-green-400 text-white flex-shrink-0">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+                <nav class="space-y-4">
+                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500">Home</a>
+                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500">Upload Excel</a>
+                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500">Import</a>
+                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500">Export</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+                <h1 class="text-3xl font-bold text-center mb-6">Upload an Excel File</h1>
+
+                <!-- Form to Upload File -->
+                <form action="/upload" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <div>
+                        <input type="file" name="file" accept=".xls,.xlsx" class="block w-full text-sm text-gray-500 file:border file:rounded file:p-2 file:bg-gray-50 file:text-gray-700" required>
+                    </div>
+                    <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300">Upload</button>
+                </form>
+
+                {% if table %}
+                    <h2 class="text-2xl font-semibold mt-8">Excel Content:</h2>
+                    <table class="min-w-full mt-4 table-auto">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                {% for column in table["columns"] %}
+                                    <th class="px-4 py-2 text-left font-medium">{{ column }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in table["values"] %}
+                                <tr class="border-b hover:bg-gray-50">
+                                    {% for cell in row %}
+                                        <td class="px-4 py-2">{{ cell }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+
+                {% if at_risk_checklist %}
+                    <h2 class="text-2xl font-semibold mt-8">At Risk Checklist:</h2>
+                    <ul class="mt-4 space-y-2">
+                        {% for item in at_risk_checklist %}
+                            <li class="flex items-center">
+                                <input type="checkbox" {% if item.checked %}checked{% endif %} class="mr-2">
+                                <span>{{ item.value }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if chart_url %}
+                    <h2 class="text-2xl font-semibold mt-8">Generated Chart:</h2>
+                    <img src="{{ chart_url }}" alt="Excel Chart" class="mt-4 w-full rounded-lg">
+                {% endif %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

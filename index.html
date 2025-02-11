@@ -12,15 +12,28 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center text-white">
             <!-- Logo and Uniwork Name -->
             <div class="flex items-center space-x-1">
-                <img src="/static/uploads/download-removebg-preview.png" alt="Uniwork Logo" class="h-10 w-10 object-contain"> <!-- Adjust the src to the correct path of your logo -->
-                <a href="#" class="text-2xl text-black font-bold ">Bicutan Medical Center, Inc.</a>
+                <img src="/static/uploads/download-removebg-preview.png" alt="Uniwork Logo" class="h-10 w-10 object-contain" style="margin-left: -150%;"> <!-- Adjust the src to the correct path of your logo -->
+                <a href="#" class="text-2xl text-black font-bold" style="font-family: 'Libre Baskerville', Georgia, serif; margin-left: 2%;">BicutanMed</a>
             </div>
-            <div class="space-x-5 text-black">
+            <div class="space-x-5 text-black" style="font-family: 'Lusitana', Georgia, serif;">
                 <a href="#" class="hover:bg-green-500 py-2 px-4 rounded-lg">Home</a>
                 <a href="#" class="hover:bg-green-500 py-2 px-4 rounded-lg">Upload Excel</a>
                 <a href="#" class="hover:bg-green-500 py-2 px-4 rounded-lg">Services</a>
                 <a href="#" class="hover:bg-green-500 py-2 px-4 rounded-lg">Contact</a>
             </div>
+                <div class="relative" style="margin-left: 20%;">
+                    <button id="profile-btn" class="flex items-center space-x-2 py-2 px-4 bg-green-500 rounded-full hover:bg-green-600">
+                        <img src="/static/uploads/acc.jpg" alt="Profile" class="h-8 w-8 rounded-full">
+                        <span class="hidden md:block text-black" style="font-family: 'Lusitana', Georgia, serif;">John Doe</span>
+                    </button>
+        
+                    <!-- Profile Dropdown -->
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 bg-white text-black w-48 rounded-lg shadow-lg" style="font-family: 'Lusitana', Georgia, serif;">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">View Profile</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+                        <a href="/login" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+                    </div>
+                </div>
         </div>
     </nav>
 
@@ -30,30 +43,29 @@
             <div class="p-6">
                 
                 <!-- Search Bar -->
-                <form action="/search" method="GET" class="mb-6">
+                <form action="/search" method="GET" class="mb-6" style="font-family: 'Lusitana', Georgia, serif;">
                     <input type="text" name="query" class="p-2 w-full text-sm text-gray-500 border rounded-lg" placeholder="Search..." required>
-                    <button type="submit" class="mt-2 w-full bg-green-500 text-white py-2 rounded-lg">Search</button>
+                    <button type="submit" class="mt-2 w-full bg-green-500 py-2 hover:bg-green-600 rounded-lg text-black" style="font-family: 'Lusitana', Georgia, serif;">Search</button>
                 </form>
         
                 <nav class="space-y-4 text-black">
-                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500">Import</a>
+                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500" style="font-family: 'Lusitana', Georgia, serif;">Import</a>
         
                     <!-- Updated Import Section to Upload File -->
                     <form action="/upload" method="POST" enctype="multipart/form-data" class="block py-2 px-4 rounded-lg" style="background-color: #FEFAD9;">
                         <input type="file" name="file" accept=".xls,.xlsx" class="w-full text-sm text-gray-500 file:border file:rounded file:p-2 file:bg-gray-50 file:text-gray-700" required>
-                        <button type="submit" class="w-full mt-2 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300">Upload</button>
+                        <button type="submit" class="w-full mt-2 bg-green-500 py-2 rounded-lg hover:bg-green-600 transition duration-300 text-black" style="font-family: 'Lusitana', Georgia, serif;">Upload</button>
                     </form>
         
-                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500">Export</a>
-                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500">Print</a>
-                    <a href="/login" class="block py-2 px-4 rounded-lg hover:bg-green-500 mb-1" style="margin-top: 200%; text-align: center;" >Logout</a>
+                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500" style="font-family: 'Lusitana', Georgia, serif;">Export</a>
+                    <a href="#" class="block py-2 px-4 rounded-lg hover:bg-green-500" style="font-family: 'Lusitana', Georgia, serif;">Print</a>
                     <nav>
             </div>
         </aside>        
         <!-- Main Content -->
         <main class="flex-1 p-1">
             <div class="max-w-9xl mx-auto p-6 rounded-lg text-center" style="background-color: #FEFAD9;">
-                <h1 class="text-3xl font-bold text-center mb-6">Daily Census Patients</h1>
+                <h1 class="text-3xl font-bold text-center mb-6" style="font-family:  'Libre Baskerville', Georgia, serif;">Daily Census Patients</h1>
 
                 {% if table %}
                     <h2 class="text-2xl font-semibold mt-8">Excel Content:</h2>
@@ -91,5 +103,12 @@
             </div>
         </main>
     </div>
+    <script>
+        // Profile Dropdown Toggle
+        document.getElementById('profile-btn').addEventListener('click', () => {
+            const menu = document.getElementById('profile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
